@@ -3,9 +3,34 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet">
+        <script src="./rps.js" defer></script>
         <title>Rock Paper Scissors</title>
     </head>
     <body>
-        <script src="./index.js"></script>
+        <div class="main-section">
+            <div class="section wrapper">
+                <h1 class="game-title">rock paper scissors</h1>
+                <p class="game-text">what is your turn?</p>
+                <div class="game-container">
+                    <div class="choices">
+                        <button class="rock">ROCK</button>
+                        <button class="paper">PAPER</button>
+                        <button class="scissors">SCISSORS</button>
+                    </div>
+                    <div class="score">
+                        <div class="player-score">
+                            <h2 class="score-title">you</h2>
+                            <p>0</p>
+                        </div>
+                        <div class="computer-score">
+                            <h2 class="score-title">computer</h2>
+                            <p>0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

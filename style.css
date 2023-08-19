@@ -1,0 +1,80 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --dark: #181920;
+    --light: #e1eaee;
+
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 32px;
+
+    --font-s-1: 12px;
+    --font-s-2: 18px;
+    --font-s-3: 36px;
+}
+
+html {
+    font-family: "Lato", sans-serif;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+
+.wrapper {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.main-section {
+    padding: var(--space-3) clamp(var(--space-3), 5vw, 160px);
+}
+
+.main-section .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.game-title {
+    font-size: var(--font-s-3);
+    font-weight: 600;
+    text-align: center;
+}
+
+.game-text {
+    font-size: var(--font-s-2);
+    font-weight: 300;
+    text-align: center;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.choices {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.score {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.score div {
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+}
