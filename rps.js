@@ -1,24 +1,7 @@
-// const game = () => {
-//     let score = 0;
-
-//     for (let round = 1; round <= 5; round++) {
-//         const playerChoice = prompt("What is your turn? (rock/paper/scissors)");
-//         const computerChoice = getRandomChoice();
-
-//         const outcome = processRound(playerChoice, computerChoice);
-//         score += outcome.val;
-        
-//         alert(outcome.msg)
-//     }
-
-//     const message = score < 0 ? "You lost!" : (score > 0 ? "You won!" : "It's a tie! -_-");
-//     console.log(message);
-//     alert(message);
-// }
-// game();
-
 let scores = {"player": 0, "computer": 0};
 const names = {"r": "rock", "p": "paper", "s": "scissors"};
+
+let animStoppers = {};
 
 const getRandomChoice = () => {
     return ["r", "p", "s"][Math.floor(Math.random() * 3)];
@@ -41,17 +24,17 @@ const playRound = (playerChoice) => {
     switch (outcome) {
         case -1:
             scores.computer += 1;
-            roundOutcome.textContent = "you lost!"
-            roundText.textContent = `${names[playerChoice]} loses to ${names[computerChoice]}`
+            typeText(roundOutcome, "you lost!");
+            typeText(roundText, `${names[playerChoice]} loses to ${names[computerChoice]}`);
             break;
         case 0:
-            roundOutcome.textContent = "it's a tie!"
-            roundText.textContent = `${names[playerChoice]} ties with ${names[computerChoice]}`
+            typeText(roundOutcome, "it's a tie!");
+            typeText(roundText, `${names[playerChoice]} ties with ${names[computerChoice]}`);
             break;
         case 1:
             scores.player += 1;
-            roundOutcome.textContent = "you won!"
-            roundText.textContent = `${names[playerChoice]} defeats ${names[computerChoice]}`
+            typeText(roundOutcome, "you won!");
+            typeText(roundText, `${names[playerChoice]} defeats ${names[computerChoice]}`);
             break;
     }
     updateScore();
@@ -62,14 +45,16 @@ const playRound = (playerChoice) => {
 };
 
 const finishGame = (playerWon) => {
-    endMessage.textContent = `you ${playerWon ? "won" : "lost"}!`
+    typeText(endMessage, `you ${playerWon ? "won" : "lost"}!`);
 
     overlay.classList.add("active");
     modal.classList.add("active");
 }
 
 const startGame = () => {
-    roundOutcome.textContent = "what is your turn?";
+    typeText(gameTitle, "rock | paper | scissors", 30);
+    typeText(roundOutcome, "what is your turn?");
+
     roundText.textContent = "";
 
     scores.player = 0;
@@ -80,10 +65,40 @@ const startGame = () => {
     modal.classList.remove("active");
 };
 
-const restart = () => {
+const typeText = (element, text, interval=20) => {
+    if (animStoppers[element]) {
+        animStoppers[element]();
+    }
 
+    element.innerHTML = "";
+
+    const onTick = () => {
+        const span = document.createElement("span");
+        span.setAttribute("class", `letter ${i % 2 === 0 ? "effect1" : "effect2"}`)
+        span.innerText = text[i];
+        element.appendChild(span);
+
+        setTimeout(() => {span.classList.remove("effect1"); span.classList.remove("effect2")}, interval-10);
+
+        i++
+        if (i === text.length) {
+            endTimer();
+            return;
+        }
+    };
+
+    const endTimer = () => {
+        clearInterval(typewriterTimer);
+        animStoppers[element] = null;
+    };
+
+    let i = 0;
+    let typewriterTimer = setInterval(onTick, interval);
+
+    animStoppers[element] = endTimer;
 };
 
+const gameTitle = document.querySelector(".game-title");
 const playerScore = document.querySelector(".player-score .score-count");
 const computerScore = document.querySelector(".computer-score .score-count");
 const roundOutcome = document.querySelector(".round-outcome");

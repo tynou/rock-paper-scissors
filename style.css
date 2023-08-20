@@ -40,7 +40,7 @@ body {
 .main-section .section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
 }
 
 .game-title {
@@ -53,6 +53,7 @@ body {
     font-size: var(--font-s-2);
     font-weight: 300;
     text-align: center;
+    height: var(--font-s-2);
 }
 
 .game-container {
@@ -177,4 +178,18 @@ img {
 
 .overlay.active {
     display: block;
+}
+
+.letter {
+    min-width: 8px;
+    display: inline-block;
+    transition: 200ms;
+}
+
+.effect1 {
+    transform: translate(0, -40%) rotate(-16deg) scale(0.75);
+}
+
+.effect2 {
+    transform: translate(0, 40%) rotate(16deg) scale(0.75);
 }
